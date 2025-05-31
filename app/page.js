@@ -161,7 +161,6 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
-
 import MotionWrapperDelay from "./components/FramerMotion/MotionWrapperDelay";
 import BottomToTopSmoke from "./components/SmokeEffects/BottomToTopSmoke";
 import Autoplay from "embla-carousel-autoplay";
@@ -184,6 +183,7 @@ const carouselSlides = [
 function CarouselFallback() {
   return (
     <div className="w-full max-w-[600px] mx-auto h-[400px] flex items-center justify-center">
+      <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500 mr-2"></div>
       <p className="text-gray-300 text-lg">Loading images...</p>
     </div>
   );
@@ -228,6 +228,7 @@ export default function Home() {
                   visible: { opacity: 1, y: 0 },
                 }}
               >
+                {/* Wrap Carousel in Suspense for async image loading */}
                 <Suspense fallback={<CarouselFallback />}>
                   <Carousel
                     plugins={[
@@ -273,11 +274,11 @@ export default function Home() {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
                 variants={{
-                  hidden: { opacity: 0, x: 400 },
+                  hidden: { opacity: 0, x: 100 },
                   visible: { opacity: 1, x: 0 },
                 }}
               >
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-gray-600/30">
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-purple-300/30">
                   <div className="text-2xl sm:text-3xl mb-3">🔮</div>
                   <h3 className="text-lg sm:text-xl font-semibold mb-2 text-white">
                     Smart Card Interpretation
@@ -299,7 +300,7 @@ export default function Home() {
                   visible: { opacity: 1, y: 0 },
                 }}
               >
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-gray-600/30">
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-purple-300/30">
                   <div className="text-2xl sm:text-3xl mb-3">✨</div>
                   <h3 className="text-lg sm:text-xl font-semibold mb-2 text-white">
                     Deep Emotional Insights
@@ -321,7 +322,7 @@ export default function Home() {
                   visible: { opacity: 1, x: 0 },
                 }}
               >
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-gray-600/30">
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-purple-300/30">
                   <div className="text-2xl sm:text-3xl mb-3">🧠</div>
                   <h3 className="text-lg sm:text-xl font-semibold mb-2 text-white">
                     Intuitive AI Guidance
