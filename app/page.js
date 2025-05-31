@@ -152,17 +152,19 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { Suspense } from "react";
 
-import MotionWrapperDelay from "./components/FramerMotion/MotionWrapperDelay";
-import BottomToTopSmoke from "./components/SmokeEffects/BottomToTopSmoke";
-import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
   CarouselPrevious,
+  CarouselNext,
 } from "@/components/ui/carousel";
+
+import MotionWrapperDelay from "./components/FramerMotion/MotionWrapperDelay";
+import BottomToTopSmoke from "./components/SmokeEffects/BottomToTopSmoke";
+import Autoplay from "embla-carousel-autoplay";
 
 // Define carousel slides with 10 images
 const carouselSlides = [
@@ -177,6 +179,15 @@ const carouselSlides = [
   { src: "/tarot9.jpg", alt: "Intuitive Tarot Reading" },
   { src: "/tarot10.jpg", alt: "Tarot Path to Insight" },
 ];
+
+// Fallback component for Suspense
+function CarouselFallback() {
+  return (
+    <div className="w-full max-w-[600px] mx-auto h-[400px] flex items-center justify-center">
+      <p className="text-gray-300 text-lg">Loading images...</p>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -217,33 +228,35 @@ export default function Home() {
                   visible: { opacity: 1, y: 0 },
                 }}
               >
-                <Carousel
-                  plugins={[
-                    Autoplay({
-                      delay: 2000,
-                      stopOnInteraction: true,
-                      stopOnMouseEnter: true,
-                    }),
-                  ]}
-                  className="w-full max-w-[600px] mx-auto"
-                >
-                  <CarouselContent>
-                    {carouselSlides.map((slide, index) => (
-                      <CarouselItem key={index}>
-                        <Image
-                          src={slide.src}
-                          alt={slide.alt}
-                          width={600}
-                          height={400}
-                          className="w-full h-auto rounded-lg shadow-2xl border-4 border-purple-200"
-                          priority={index === 0}
-                        />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious />
-                  <CarouselNext />
-                </Carousel>
+                <Suspense fallback={<CarouselFallback />}>
+                  <Carousel
+                    plugins={[
+                      Autoplay({
+                        delay: 3000,
+                        stopOnInteraction: true,
+                        stopOnMouseEnter: true,
+                      }),
+                    ]}
+                    className="w-full max-w-[600px] mx-auto"
+                  >
+                    <CarouselContent>
+                      {carouselSlides.map((slide, index) => (
+                        <CarouselItem key={index}>
+                          <Image
+                            src={slide.src}
+                            alt={slide.alt}
+                            width={600}
+                            height={400}
+                            className="w-full h-auto rounded-lg shadow-2xl border-4 border-purple-200"
+                            priority={index === 0}
+                          />
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                </Suspense>
               </MotionWrapperDelay>
             </div>
             <p className="text-base sm:text-lg text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed">
@@ -260,11 +273,11 @@ export default function Home() {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
                 variants={{
-                  hidden: { opacity: 0, x: 100 },
+                  hidden: { opacity: 0, x: 400 },
                   visible: { opacity: 1, x: 0 },
                 }}
               >
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-purple-300/30">
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-gray-600/30">
                   <div className="text-2xl sm:text-3xl mb-3">🔮</div>
                   <h3 className="text-lg sm:text-xl font-semibold mb-2 text-white">
                     Smart Card Interpretation
@@ -286,8 +299,8 @@ export default function Home() {
                   visible: { opacity: 1, y: 0 },
                 }}
               >
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-purple-300/30">
-                  <div className="text-2xl sm:text-3xl mb-3">✩</div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-gray-600/30">
+                  <div className="text-2xl sm:text-3xl mb-3">✨</div>
                   <h3 className="text-lg sm:text-xl font-semibold mb-2 text-white">
                     Deep Emotional Insights
                   </h3>
@@ -297,7 +310,7 @@ export default function Home() {
                   </p>
                 </div>
               </MotionWrapperDelay>
-
+              {/* Feature 3 */}
               <MotionWrapperDelay
                 initial="hidden"
                 whileInView="visible"
@@ -308,8 +321,8 @@ export default function Home() {
                   visible: { opacity: 1, x: 0 },
                 }}
               >
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-purple-300/30">
-                  <div class="text-2xl sm:text-3xl mb-3">🧠</div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-gray-600/30">
+                  <div className="text-2xl sm:text-3xl mb-3">🧠</div>
                   <h3 className="text-lg sm:text-xl font-semibold mb-2 text-white">
                     Intuitive AI Guidance
                   </h3>
@@ -321,7 +334,7 @@ export default function Home() {
               </MotionWrapperDelay>
             </div>
             <Link href="/readingchoice">
-              <button className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 sm:px-8 md:px-10 py-3 sm-py-4 rounded-full text-base sm:text-lg font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+              <button className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
                 Get Your AI Tarot Reading
               </button>
             </Link>
