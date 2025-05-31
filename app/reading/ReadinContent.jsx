@@ -7,10 +7,11 @@ import { useSearchParams } from "next/navigation";
 
 
 import Link from "next/link";
-import tarotDeck from "../../data/tarotDeck";
+
 import Button from "../components/Button";
 import CardSpread from "../components/CardSpread";
 import AIReading from "../components/AIReading";
+import tarotDeck from "../data/tarotDeck";
 
 const spreadConfig = {
     single: { name: "Single Card Draw", cards: 1, positions: ["Insight"], description: "A quick insight or daily guidance to focus your thoughts." },
