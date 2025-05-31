@@ -153,17 +153,16 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import MotionWrapperDelay from "./components/FramerMotion/MotionWrapperDelay";
+import BottomToTopSmoke from "./components/SmokeEffects/BottomToTopSmoke";
+import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
   CarouselNext,
-} from "@/components/ui/Carousel";
-
-import MotionWrapperDelay from "./components/FramerMotion/MotionWrapperDelay";
-import BottomToTopSmoke from "./components/SmokeEffects/BottomToTopSmoke";
-import Autoplay from "embla-carousel-autoplay";
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 // Define carousel slides with 10 images
 const carouselSlides = [
